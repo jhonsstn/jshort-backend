@@ -16,7 +16,7 @@ app.get('/:id', RedirectsController.get);
 
 app.get('/:id/clicks', RedirectsController.clicks);
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Hello World!');
 });
 

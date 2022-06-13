@@ -28,12 +28,10 @@ module.exports = {
         raw: true,
       });
       if (redirect.length === 0) throw new MissingUrlError();
-      console.log(`Isso aqui: ${redirect.clicks}`);
       await Redirects.update(
         { clicks: redirect.clicks + 1 },
         { where: { id } }
       );
-
       res.redirect(301, redirect.longUrl);
     } catch (error) {
       res.status(404).json({ Message: error.message });
