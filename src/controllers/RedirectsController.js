@@ -7,7 +7,7 @@ module.exports = {
     try {
       const { longUrl } = req.body;
       const id = shortid();
-      const shortUrl = `localhost:3000/${id}`;
+      const shortUrl = `https://j-short.herokuapp.com/${id}`;
       const url = await Redirects.create({
         id,
         longUrl,
@@ -29,7 +29,6 @@ module.exports = {
         raw: true,
       });
       if (redirect.length === 0) throw new MissingUrlError();
-      console.log(redirect[0]);
       await Redirects.update(
         { clicks: redirect[0].clicks + 1 },
         { where: { id } }
