@@ -23,17 +23,18 @@ module.exports = {
   async get(req, res) {
     try {
       const { id } = req.params;
-      const redirect = await Redirects.findAll({
+      const redirect = await Redirects.findOne({
         where: { id },
-        attributes: ['longUrl', 'clicks'],
         raw: true,
       });
       if (redirect.length === 0) throw new MissingUrlError();
+      console.log(`Isso aqui: ${redirect.clicks}`);
       await Redirects.update(
-        { clicks: redirect[0].clicks + 1 },
+        { clicks: redirect.clicks + 1 },
         { where: { id } }
       );
-      res.redirect(301, redirect[0].longUrl);
+
+      res.redirect(301, redirect.longUrl);
     } catch (error) {
       res.status(404).json({ Message: error.message });
     }
@@ -42,7 +43,7 @@ module.exports = {
   async clicks(req, res) {
     try {
       const { id } = req.params;
-      const redirect = await Redirects.findAll({
+      const redirect = await Redirects.findOne({
         where: { id },
         attributes: ['clicks'],
         raw: true,
