@@ -1,25 +1,30 @@
 const express = require('express');
 const cors = require('cors');
-const RedirectsController = require('./controllers/RedirectsController');
+const RedirectCreateController = require('./controllers/RedirectCreateController');
 const urlVerification = require('./middleware/urlVerificationMiddleware');
+const RedirectGetAllController = require('./controllers/RedirectGetAllController');
+const RedirectGetController = require('./controllers/RedirectGetController');
+const RedirectClicksController = require('./controllers/RedirectClicksController');
+
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.post('/create', urlVerification, RedirectsController.create);
+app.post('/create', urlVerification, RedirectCreateController.exec);
 
-app.get('/all', RedirectsController.getAll);
+app.get('/all', RedirectGetAllController.exec);
 
-app.get('/:id', RedirectsController.get);
+app.get('/:id', RedirectGetController.exec);
 
-app.get('/:id/clicks', RedirectsController.clicks);
+app.get('/:id/clicks', RedirectClicksController.exec);
 
 app.get('/', (_req, res) => {
-  res.send('Hello World!');
+  res.send('Em construção...');
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server started on port 3000');
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
