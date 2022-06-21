@@ -6,14 +6,14 @@ module.exports = {
     try {
       const { longUrl } = req.body;
       const id = crypto.randomBytes(3).toString('hex');
-      const shortUrl = `https://j-short.herokuapp.com/${id}`;
+      const shortUrl = `https://jshort-backend.herokuapp.com/${id}`;
       const url = await Redirects.create({
         id,
         longUrl,
         shortUrl,
         clicks: 0,
       });
-      res.json({ url });
+      res.json([url]);
     } catch (error) {
       res.status(400).json({ Message: error.message });
     }
