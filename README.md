@@ -17,6 +17,7 @@ API criada utilizando express que recebe url, gera uma url menor, registra em ba
 ```http
   POST /create
 ```
+###### Requisição.body
 ```json
   {
     "longUrl": "longUrl"
